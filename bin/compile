@@ -173,6 +173,7 @@ set +e
 mkdir -p $CACHE_DIR/.tools/wget
 cd /app/.heroku/venv/bin
 puts-step  "Fetching and installing wget"
+export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
 curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
 tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
 cd wget-1.13.4
