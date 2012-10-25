@@ -34,6 +34,6 @@ git commit -m "Commit 1"
 echo "Heroku app pushing"
 
 #heroku create --stack cedar
-git push 
+git push git@github.com:sansa1839/heroku-buildpack-python.git
 
 echo "All Done!"
