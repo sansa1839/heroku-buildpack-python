@@ -101,6 +101,7 @@ function set-default-env (){
 #
 
 # Switch to the repo's context.
+puts-step "Build dir:  $BUILD_DIR"
 cd $BUILD_DIR
 
 # Experimental pre_compile hook.
@@ -167,9 +168,25 @@ mkdir -p $(dirname $PROFILE_PATH)
 # ### Virtualenv Setup
 #
 
+# Install wget
+set +e
+mkdir -p $CACHE_DIR/.tools/wget
+cd /app/.heroku/venv/bin
+puts-step  "Fetching and installing wget"
+curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
+tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
+cd wget-1.13.4
+./configure --prefix=$CACHE_DIR/.tools/wget --without-ssl >/dev/null 2>&1
+make >/dev/null 2>&1
+make install >/dev/null 2>&1
+puts-step "wget installed"
+# echo "" | indent
+set -e
+
+
+
 # Create the virtualenv. Rebuild if corrupt.
 # TODO: Bootstrap a bottled Python VM...
-
 set +e
 puts-step "Preparing Python interpreter ($PYTHON_VERSION)"
 puts-step "Creating Virtualenv version $(virtualenv --version)"
@@ -204,9 +221,21 @@ if (grep -Fiq "hg+" requirements.txt) then
   pip install --use-mirrors mercurial | indent
 fi
 
+
 # Install dependencies with Pip.
 puts-step "Installing dependencies using pip version $(pip --version | awk '{print $2}')"
 pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/src | indent
+
+
+# Instalar pil
+# cd /app/.heroku/venv/lib
+puts-step "Installing PIL with wget"
+wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
+tar zxvf Imaging-1.1.7.tar.gz
+cd Imaging-1.1.7
+python setup.py install
+puts-step "PIL installed succefully"
+
 
 # Do additional application hackery if applications appears to be a Django app.
 # Optionally, disable all Django-specific changes with `DISABLE_INJECTION` env.
