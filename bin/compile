@@ -179,7 +179,7 @@ puts-step "wget installed"
   #TODO: touch .heroku/injection_disabled
 # }
 set -e
-
+cd $BUILD_DIR
 # Buildpack profile init script
 mkdir -p $(dirname $PROFILE_PATH)
 
