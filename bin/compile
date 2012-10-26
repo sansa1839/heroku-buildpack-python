@@ -240,7 +240,7 @@ pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/
 #python setup.py install
 #puts-step "PIL installed succefully"
 #cd ..
-
+export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib
 # Instalar Image_Magick 
 # tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
 puts-step "Installing ImageMagick"
@@ -253,8 +253,11 @@ make install
 puts-step "ImageMagick installed succefully"
 cd ..
 
+puts-step "Set PATH libs ImageMagick"
+set-default-env PKG_CONFIG_PATH /app/.heroku/venv/lib
+set-default-env MAGICKPP_CFLAGS /app/.heroku/venv/lib
+set-default-env MAGICKPP_LIBS /app/.heroku/venv/lib
 
-#export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib
 
 puts-step "Installing PithonMagick"
 wget http://www.imagemagick.org/download/python/PythonMagick-0.9.8.tar.gz
@@ -299,8 +302,10 @@ done
 
 set-env PATH '$HOME/.heroku/venv/bin:$PATH'
 set-default-env PYTHONUNBUFFERED true
-set-default-env LIBRARY_PATH /app/.heroku/vendor/lib
-set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib
+# set-default-env LIBRARY_PATH /app/.heroku/vendor/lib
+# set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib
+set-default-env LIBRARY_PATH /app/.heroku/venv/lib
+set-default-env LD_LIBRARY_PATH /app/.heroku/venv/lib
 set-default-env LANG en_US.UTF-8
 set-default-env PYTHONHASHSEED random
 set-default-env PYTHONHOME /app/.heroku/venv/
