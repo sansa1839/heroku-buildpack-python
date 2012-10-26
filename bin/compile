@@ -158,20 +158,9 @@ set +e
 mkdir .heroku &> /dev/null
 HEROKU_DIR_STATUS=$?
 
-# TODO: This is a new app, disable injection.
-# [ $HEROKU_DIR_STATUS -eq 0 ] && {
-  #TODO: touch .heroku/injection_disabled
-# }
-set -e
 
-# Buildpack profile init script
-mkdir -p $(dirname $PROFILE_PATH)
-
-# ### Virtualenv Setup
-#
 
 # Install wget
-set +e
 mkdir -p $CACHE_DIR/.tools/wget
 puts-step  "Fetching and installing wget"
 export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
@@ -183,9 +172,19 @@ make >/dev/null 2>&1
 make install >/dev/null 2>&1
 puts-step "wget installed"
 # echo "" | indent
+
+
+# TODO: This is a new app, disable injection.
+# [ $HEROKU_DIR_STATUS -eq 0 ] && {
+  #TODO: touch .heroku/injection_disabled
+# }
 set -e
 
+# Buildpack profile init script
+mkdir -p $(dirname $PROFILE_PATH)
 
+# ### Virtualenv Setup
+#
 
 # Create the virtualenv. Rebuild if corrupt.
 # TODO: Bootstrap a bottled Python VM...
