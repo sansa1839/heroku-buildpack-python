@@ -160,20 +160,6 @@ HEROKU_DIR_STATUS=$?
 
 
 
-# Install wget
-mkdir -p $CACHE_DIR/.tools/wget
-puts-step  "Fetching and installing wget"
-export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
-curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
-tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
-cd wget-1.13.4
-./configure --prefix=$CACHE_DIR/.tools/wget --without-ssl >/dev/null 2>&1
-make >/dev/null 2>&1
-make install >/dev/null 2>&1
-puts-step "wget installed"
-# echo "" | indent
-
-
 # TODO: This is a new app, disable injection.
 # [ $HEROKU_DIR_STATUS -eq 0 ] && {
   #TODO: touch .heroku/injection_disabled
@@ -228,14 +214,7 @@ puts-step "Installing dependencies using pip version $(pip --version | awk '{pri
 pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/src | indent
 
 
-# Instalar pil
-# cd /app/.heroku/venv/lib
-puts-step "Installing PIL with wget"
-wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
-tar zxvf Imaging-1.1.7.tar.gz
-cd Imaging-1.1.7
-python setup.py install
-puts-step "PIL installed succefully"
+
 
 
 # Do additional application hackery if applications appears to be a Django app.
