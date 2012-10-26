@@ -102,6 +102,8 @@ function set-default-env (){
 
 # Switch to the repo's context.
 puts-step "Build dir:  $BUILD_DIR"
+puts-step "Root dir:  $ROOT_DIR"
+puts-step "Bin dir:  $BIN_DIR"
 cd $BUILD_DIR
 
 # Experimental pre_compile hook.
@@ -171,7 +173,6 @@ mkdir -p $(dirname $PROFILE_PATH)
 # Install wget
 set +e
 mkdir -p $CACHE_DIR/.tools/wget
-cd /app/.heroku/venv/bin
 puts-step  "Fetching and installing wget"
 export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
 curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
