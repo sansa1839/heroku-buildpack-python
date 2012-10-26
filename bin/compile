@@ -240,7 +240,7 @@ tar zxvf Imaging-1.1.7.tar.gz
 cd Imaging-1.1.7
 python setup.py install
 puts-step "PIL installed succefully"
-
+cd ..
 
 # Do additional application hackery if applications appears to be a Django app.
 # Optionally, disable all Django-specific changes with `DISABLE_INJECTION` env.
