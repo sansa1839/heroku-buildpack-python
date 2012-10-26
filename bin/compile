@@ -233,14 +233,37 @@ pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/
 
 
 # Instalar pil
-# cd /app/.heroku/venv/lib
-puts-step "Installing PIL with wget"
-wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
-tar zxvf Imaging-1.1.7.tar.gz
-cd Imaging-1.1.7
-python setup.py install
-puts-step "PIL installed succefully"
+#puts-step "Installing PIL with wget"
+#wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
+#tar zxvf Imaging-1.1.7.tar.gz
+#cd Imaging-1.1.7
+#python setup.py install
+#puts-step "PIL installed succefully"
+#cd ..
+
+# Instalar Image_Magick 
+# tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
+puts-step "Installing ImageMagick"
+wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+tar zxvf ImageMagick.tar.gz
+cd ImageMagick-6.8.0-3
+./configure
+make
+make install
+puts-step "ImageMagick installed succefully"
 cd ..
+
+
+puts-step "Installing PithonMagick"
+wget http://www.imagemagick.org/download/python/PythonMagick-0.9.8.tar.gz
+tar zxvf PythonMagick-0.9.8.tar.gz
+cd PythonMagick-0.9.8
+./configure
+make
+make install
+puts-step "PithonMagick installed succefully"
+cd ..
+
 
 # Do additional application hackery if applications appears to be a Django app.
 # Optionally, disable all Django-specific changes with `DISABLE_INJECTION` env.
