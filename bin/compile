@@ -161,13 +161,13 @@ HEROKU_DIR_STATUS=$?
 
 
 # Install wget
-mkdir -p $CACHE_DIR/.tools/wget
+# mkdir -p $BIN_DIR/wget
 puts-step  "Fetching and installing wget"
 # export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
 curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
 tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
 cd wget-1.13.4
-./configure --prefix=$CACHE_DIR/.tools/wget --without-ssl >/dev/null 2>&1
+./configure --prefix=$BIN_DIR --without-ssl >/dev/null 2>&1
 make >/dev/null 2>&1
 make install >/dev/null 2>&1
 puts-step "wget installed"
