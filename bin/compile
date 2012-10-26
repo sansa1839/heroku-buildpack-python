@@ -247,7 +247,7 @@ puts-step "Installing ImageMagick"
 wget http://www.imagemagick.org/download/ImageMagick.tar.gz
 tar zxvf ImageMagick.tar.gz
 cd ImageMagick-6.8.0-3
-./configure
+./configure --prefix=$BUILD_DIR/.heroku/venv
 make
 make install
 puts-step "ImageMagick installed succefully"
@@ -258,7 +258,7 @@ puts-step "Installing PithonMagick"
 wget http://www.imagemagick.org/download/python/PythonMagick-0.9.8.tar.gz
 tar zxvf PythonMagick-0.9.8.tar.gz
 cd PythonMagick-0.9.8
-./configure
+./configure --prefix=$BUILD_DIR/.heroku/venv
 make
 make install
 puts-step "PithonMagick installed succefully"
