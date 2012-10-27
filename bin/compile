@@ -71,6 +71,10 @@ unset GIT_DIR PYTHONHOME PYTHONPATH LD_LIBRARY_PATH LIBRARY_PATH
 # We'll need to send these statics to other scripts we `source`.
 export PIP_DOWNLOAD_CACHE BUILD_DIR CACHE_DIR BIN_DIR PROFILE_PATH
 
+export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib
+export MAGICKPP_CFLAGS=:$BUILD_DIR/.heroku/venv/lib
+export MAGICKPP_LIBS=:$BUILD_DIR/.heroku/venv/lib
+
 # Syntax sugar.
 indent() {
   RE="s/^/       /"
@@ -240,7 +244,7 @@ pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/
 #python setup.py install
 #puts-step "PIL installed succefully"
 #cd ..
-export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib
+
 # Instalar Image_Magick 
 # tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
 puts-step "Installing ImageMagick"
@@ -300,7 +304,7 @@ done
 
 # Set context environment variables.
 
-set-env PATH '$HOME/.heroku/venv/bin:$PATH'
+set-env PATH '$HOME/.heroku/venv/bin:$CACHE_DIR/.tools/wget/bin:$PATH'
 set-default-env PYTHONUNBUFFERED true
 # set-default-env LIBRARY_PATH /app/.heroku/vendor/lib
 # set-default-env LD_LIBRARY_PATH /app/.heroku/vendor/lib
