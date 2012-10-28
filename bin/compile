@@ -245,33 +245,7 @@ pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/
 #puts-step "PIL installed succefully"
 #cd ..
 
-# Instalar Image_Magick 
-# tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
-puts-step "Installing ImageMagick"
-wget http://www.imagemagick.org/download/ImageMagick.tar.gz
-tar zxvf ImageMagick.tar.gz
-cd ImageMagick-6.8.0-3
-./configure --prefix=$BUILD_DIR/.heroku/venv/lib
-make
-make install
-puts-step "ImageMagick installed succefully"
-cd ..
 
-puts-step "Set PATH libs ImageMagick"
-set-default-env PKG_CONFIG_PATH /app/.heroku/venv/lib
-set-default-env MAGICKPP_CFLAGS /app/.heroku/venv/lib
-set-default-env MAGICKPP_LIBS /app/.heroku/venv/lib
-
-
-puts-step "Installing PithonMagick"
-wget http://www.imagemagick.org/download/python/PythonMagick-0.9.8.tar.gz
-tar zxvf PythonMagick-0.9.8.tar.gz
-cd PythonMagick-0.9.8
-./configure --prefix=$BUILD_DIR/.heroku/venv/lib
-make
-make install
-puts-step "PithonMagick installed succefully"
-cd ..
 
 
 # Do additional application hackery if applications appears to be a Django app.
