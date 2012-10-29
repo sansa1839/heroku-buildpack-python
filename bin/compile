@@ -235,7 +235,7 @@ fi
 puts-step "Installing dependencies using pip version $(pip --version | awk '{print $2}')"
 pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/src | indent
 
-
+# http://blog.jedf.com/2012/06/installing-boost-libraries-150-on.html
 # Instalar pil
 #puts-step "Installing PIL with wget"
 #wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
