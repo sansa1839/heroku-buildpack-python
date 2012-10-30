@@ -71,12 +71,12 @@ unset GIT_DIR PYTHONHOME PYTHONPATH LD_LIBRARY_PATH LIBRARY_PATH
 # We'll need to send these statics to other scripts we `source`.
 export PIP_DOWNLOAD_CACHE BUILD_DIR CACHE_DIR BIN_DIR PROFILE_PATH
 
-export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib
-export MAGICKPP_CFLAGS=:$BUILD_DIR/.heroku/venv/lib
-export MAGICKPP_LIBS=:$BUILD_DIR/.heroku/venv/lib
+export PKG_CONFIG_PATH=:$BUILD_DIR/.heroku/venv/lib:$BUILD_DIR/.heroku/venv/lib/lib
+export MAGICKPP_CFLAGS=:$BUILD_DIR/.heroku/venv/lib:$BUILD_DIR/.heroku/venv/lib/lib
+export MAGICKPP_LIBS=:$BUILD_DIR/.heroku/venv/lib:$BUILD_DIR/.heroku/venv/lib/lib
 export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$BUILD_DIR/.heroku/venv/lib:$PATH
-export LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib
-export LD_LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib
+export LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib:$BUILD_DIR/.heroku/venv/lib/lib
+export LD_LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib:$BUILD_DIR/.heroku/venv/lib/lib
 
 
 # Syntax sugar.
