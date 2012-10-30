@@ -44,7 +44,9 @@ CACHE_DIR=$2
 # mkdir -p $CACHE_DIR/.tools
 mkdir -p $CACHE_DIR/.tools/wget
 export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$BUILD_DIR/.heroku/venv/lib:$PATH
-
+export LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib
+export LD_LIBRARY_PATH=:$BUILD_DIR/.heroku/venv/lib
+# export LD_RUN_PATH
 
 # The detected application type (`Python`|`Python/Django`).
 NAME=$($BIN_DIR/detect $BUILD_DIR)
@@ -216,16 +218,12 @@ wget http://www.imagemagick.org/download/ImageMagick.tar.gz
 tar zxvf ImageMagick.tar.gz
 rm ImageMagick.tar.gz
 cd ImageMagick-6.8.0-3
-./configure --prefix=$BUILD_DIR/.heroku/venv/lib
+./configure 
 make
 make install
 puts-step "ImageMagick installed succefully"
 cd ..# puts-step "Set PATH libs ImageMagick"
-set-default-env PKG_CONFIG_PATH /app/.heroku/venv/lib
-set-default-env MAGICKPP_CFLAGS /app/.heroku/venv/lib
-set-default-env MAGICKPP_LIBS /app/.heroku/venv/lib 
 
-cd $VIRTUALENV_LOC
 
 
 set -e
