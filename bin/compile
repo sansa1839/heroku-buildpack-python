@@ -113,6 +113,7 @@ function set-default-env (){
 puts-step "Build dir:  $BUILD_DIR"
 puts-step "Root dir:  $ROOT_DIR"
 puts-step "Bin dir:  $BIN_DIR"
+puts-step "Cache dir:  $CACHE_DIR"
 cd $BUILD_DIR
 
 # Experimental pre_compile hook.
@@ -183,28 +184,28 @@ HEROKU_DIR_STATUS=$?
 ## echo "" | indent
 
 
-cd $BUILD_DIR
-# Install ICU
-puts-step  "Fetching and installing ICU"
-wget http://download.icu-project.org/files/icu4c/3.8.1/icu4c-3_8_1-src.tgz
-tar -xvf icu4c-49_1_2-src.tgz
-rm icu4c-49_1_2-src.tgz
-cd icu/source
-./runConfigureICU Linux --prefix=$CACHE_DIR/.tools/ --enable-static
-make
-make install
+#cd $BUILD_DIR
+## Install ICU
+#puts-step  "Fetching and installing ICU"
+#wget http://download.icu-project.org/files/icu4c/3.8.1/icu4c-3_8_1-src.tgz
+#tar -xvf icu4c-49_1_2-src.tgz
+#rm icu4c-49_1_2-src.tgz
+#cd icu/source
+#./runConfigureICU Linux --prefix=$CACHE_DIR/.tools/ --enable-static
+#make
+#make install#
+#
 
-
-cd $BUILD_DIR
-# Install BOOST
-puts-step  "Fetching and installing boost"
-wget -O boost_1_32_0.tar.gz http://sourceforge.net/projects/boost/files/boost/1.32.0/boost_1_32_0.tar.gz/download
-tar -xvf boost_1_32_0.tar.gz
-rm boost_1_32_0.tar.gz
-export ICU_PATH=$CACHE_DIR/.tools/
-cd boost_1_32_0
-./bootstrap.sh --prefix=$HOME/pool --libdir=$CACHE_DIR/.tools/ --with-libraries=signals,thread,python
-./b2 
+#cd $BUILD_DIR
+## Install BOOST
+#puts-step  "Fetching and installing boost"
+#wget -O boost_1_32_0.tar.gz http://sourceforge.net/projects/boost/files/boost/1.32.0/boost_1_32_0.tar.gz/download
+#tar -xvf boost_1_32_0.tar.gz
+#rm boost_1_32_0.tar.gz
+#export ICU_PATH=$CACHE_DIR/.tools/
+#cd boost_1_32_0
+#./bootstrap.sh --prefix=$HOME/pool --libdir=$CACHE_DIR/.tools/ --with-libraries=signals,thread,python
+#./b2 
 # TODO: This is a new app, disable injection.
 # [ $HEROKU_DIR_STATUS -eq 0 ] && {
   #TODO: touch .heroku/injection_disabled
