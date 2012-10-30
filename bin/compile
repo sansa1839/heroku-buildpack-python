@@ -257,6 +257,7 @@ fi
 puts-step "Installing ImageMagick"
 wget http://www.imagemagick.org/download/ImageMagick.tar.gz
 tar zxvf ImageMagick.tar.gz
+rm ImageMagick.tar.gz
 cd ImageMagick-6.8.0-3
 ./configure --prefix=$BUILD_DIR/.heroku/venv/lib
 make
@@ -267,6 +268,7 @@ set-default-env PKG_CONFIG_PATH /app/.heroku/venv/lib
 set-default-env MAGICKPP_CFLAGS /app/.heroku/venv/lib
 set-default-env MAGICKPP_LIBS /app/.heroku/venv/lib 
 
+cd $VIRTUALENV_LOC
 
 # Install dependencies with Pip.
 puts-step "Installing dependencies using pip version $(pip --version | awk '{print $2}')"
