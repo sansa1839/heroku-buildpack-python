@@ -169,19 +169,42 @@ HEROKU_DIR_STATUS=$?
 
 
 
-# Install wget
-puts-step  "Fetching and installing wget"
-# export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
-curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
-tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
-cd wget-1.13.4
-./configure --prefix=$CACHE_DIR/.tools/wget --without-ssl >/dev/null 2>&1
-make >/dev/null 2>&1
-make install >/dev/null 2>&1
-puts-step "wget installed"
-# echo "" | indent
+## Install wget
+#puts-step  "Fetching and installing wget"
+## export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
+#curl -O http://ftp.gnu.org/gnu/wget/wget-1.13.4.tar.bz2 >/dev/null 2>&1
+#tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
+#rm wget-1.13.4.tar.bz2
+#cd wget-1.13.4
+#./configure --prefix=$CACHE_DIR/.tools/wget --without-ssl >/dev/null 2>&1
+#make >/dev/null 2>&1
+#make install >/dev/null 2>&1
+#puts-step "wget installed"
+## echo "" | indent
 
 
+cd $BUILD_DIR
+# Install ICU
+puts-step  "Fetching and installing ICU"
+wget http://download.icu-project.org/files/icu4c/3.8.1/icu4c-3_8_1-src.tgz
+tar -xvf icu4c-49_1_2-src.tgz
+rm icu4c-49_1_2-src.tgz
+cd icu/source
+./runConfigureICU Linux --prefix=$CACHE_DIR/.tools/ --enable-static
+make
+make install
+
+
+cd $BUILD_DIR
+# Install BOOST
+puts-step  "Fetching and installing boost"
+wget -O boost_1_32_0.tar.gz http://sourceforge.net/projects/boost/files/boost/1.32.0/boost_1_32_0.tar.gz/download
+tar -xvf boost_1_32_0.tar.gz
+rm boost_1_32_0.tar.gz
+export ICU_PATH=${HOME}/usr
+cd boost_1_50_0
+./bootstrap.sh --prefix=$HOME/pool --libdir=$CACHE_DIR/.tools/ --with-libraries=signals,thread,python
+./b2 
 # TODO: This is a new app, disable injection.
 # [ $HEROKU_DIR_STATUS -eq 0 ] && {
   #TODO: touch .heroku/injection_disabled
@@ -201,7 +224,7 @@ puts-step "Preparing Python interpreter ($PYTHON_VERSION)"
 puts-step "Creating Virtualenv version $(virtualenv --version)"
 
 # Try to create the virtualenv.
-OUT=$(virtualenv --python $PYTHON_EXE --distribute --prompt='(venv) ' $VIRTUALENV_LOC 2>&1)
+OUT=$(virtualenv --python $PYTHON_EXE --distribute --never-download --prompt='(venv) ' $VIRTUALENV_LOC 2>&1)
 
 [ $? -ne 0 -o -n "$CLEAN_VIRTUALENV" ] && {
   if [ -n "$CLEAN_VIRTUALENV" ]
