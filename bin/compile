@@ -43,7 +43,7 @@ CACHE_DIR=$2
 # mkdir -p $CACHE_DIR
 # mkdir -p $CACHE_DIR/.tools
 mkdir -p $CACHE_DIR/.tools/wget
-export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$PATH
+export PATH=:/usr/local/bin:$CACHE_DIR/.tools/wget/bin:$BUILD_DIR/.heroku/venv/lib:$PATH
 
 
 # The detected application type (`Python`|`Python/Django`).
