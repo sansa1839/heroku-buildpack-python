@@ -29,7 +29,7 @@
 echo "Committing to Git"
 
 git add .
-git commit -m "Commit 21"
+git commit -m "Commit 22"
 
 echo "Heroku app pushing"
 
