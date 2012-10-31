@@ -214,19 +214,21 @@ HEROKU_DIR_STATUS=$?
 # [ $HEROKU_DIR_STATUS -eq 0 ] && {
   #TODO: touch .heroku/injection_disabled
 # }
-cd $BUILD_DIR
-puts-step "Installing GraficsMagick"
-wget http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick/1.3.17/GraphicsMagick-1.3.17.tar.gz/download
-tar zxvf GraphicsMagick-1.3.17.tar.gz
-rm GraphicsMagick-1.3.17.tar.gz
-cd GraphicsMagick-1.3.17
-./configure --prefix=$BUILD_DIR/.heroku/venv/lib
-make
-make install
-puts-step "GraficsMagick installed succefully"
-cd ..# puts-step "Set PATH libs ImageMagick"
 
 
+#cd $BUILD_DIR
+#puts-step "Installing GraphicsMagick"
+#wget http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick/1.3.17/GraphicsMagick-1.3.17.tar.gz/download
+#tar zxvf GraphicsMagick-1.3.17.tar.gz
+#rm GraphicsMagick-1.3.17.tar.gz
+#cd GraphicsMagick-1.3.17
+#./configure --prefix=$BUILD_DIR/.heroku/venv/lib
+#make
+#make install
+#puts-step "GraphicsMagick installed succefully"
+#cd ..# puts-step "Set PATH libs ImageMagick"
+
+apt-get install python-pythonmagick
 
 set -e
 cd $BUILD_DIR
