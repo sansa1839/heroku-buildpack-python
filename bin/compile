@@ -192,8 +192,8 @@ cd $BUILD_DIR
 # Install ICU
 puts-step  "Fetching and installing ICU"
 wget http://download.icu-project.org/files/icu4c/3.8.1/icu4c-3_8_1-src.tgz
-tar -xvf icu4c-49_1_2-src.tgz
-rm icu4c-49_1_2-src.tgz
+tar -xvf icu4c-3_8_1-src.tgz
+rm icu4c-3_8_1-src.tgz
 cd icu/source
 ./runConfigureICU Linux --prefix=$CACHE_DIR/.tools/ --enable-static
 make
@@ -203,19 +203,30 @@ puts-step "ICU installed"
 cd $BUILD_DIR
 # Install BOOST
 puts-step  "Fetching and installing boost"
-wget -O boost_1_32_0.tar.gz http://sourceforge.net/projects/boost/files/boost/1.32.0/boost_1_32_0.tar.gz/download
-tar -xvf boost_1_32_0.tar.gz
-rm boost_1_32_0.tar.gz
+wget -O boost_1_32_0.tar.gz http://sourceforge.net/projects/boost/files/boost/1.50.0/boost_1_50_0.tar.gz/download
+tar -xvf boost_1_50_0.tar.gz
+rm boost_1_50_0.tar.gz
 export ICU_PATH=$CACHE_DIR/.tools/
-cd boost_1_32_0
-./bootstrap.sh --prefix=$HOME/pool --libdir=$CACHE_DIR/.tools/ --with-libraries=signals,thread,python
-./b2 
+cd boost_1_50_0
+./bootstrap.sh --prefix=$CACHE_DIR/.tools/ --libdir=$CACHE_DIR/.tools/ --with-libraries=signals,thread,python
+./b2 --prefix=$CACHE_DIR/.tools/
 puts-step "Boost installed"
 # TODO: This is a new app, disable injection.
 # [ $HEROKU_DIR_STATUS -eq 0 ] && {
   #TODO: touch .heroku/injection_disabled
 # }
 
+### Instalar Image_Magick 
+### tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
+cd $BUILD_DIR
+puts-step "Installing ImageMagick"
+wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+tar zxvf ImageMagick.tar.gz
+cd ImageMagick-6.8.0-3
+./configure --prefix=$BUILD_DIR/.heroku/venv/lib
+make
+make install
+puts-step "ImageMagick installed succefully"
 
 #cd $BUILD_DIR
 #puts-step "Installing GraphicsMagick"
@@ -290,18 +301,7 @@ pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/
 #puts-step "PIL installed succefully"
 #cd ..
 
-### Instalar Image_Magick 
-### tar jxvf wget-1.13.4.tar.bz2 >/dev/null 2>&1
 
-puts-step "Installing ImageMagick"
-wget http://www.imagemagick.org/download/ImageMagick.tar.gz
-tar zxvf ImageMagick.tar.gz
-cd ImageMagick-6.8.0-3
-./configure --prefix=$BUILD_DIR/.heroku/venv/lib
-make
-make install
-puts-step "ImageMagick installed succefully"
-cd ..# 
 
 # puts-step "Set PATH libs ImageMagick"
 # set-default-env PKG_CONFIG_PATH /app/.heroku/venv/lib
